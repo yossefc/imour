@@ -25,6 +25,7 @@ public class BetActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         TextView betDetailsTextView = findViewById(R.id.betDetailsTextView);
+                EditText betStakeEditText = findViewById(R.id.betStakeEditText);
         Button btnSaveBet = findViewById(R.id.btnSaveBet);
 
         int fixtureId = getIntent().getIntExtra("fixtureId", -1);
@@ -33,19 +34,31 @@ public class BetActivity extends AppCompatActivity {
         String team1 = getIntent().getStringExtra("team1");
         String team2 = getIntent().getStringExtra("team2");
         String betType = getIntent().getStringExtra("betType"); // "1"/"X"/"2"
-        double odds = getIntent().getDoubleExtra("odds", -1);
-
+        double odds = 2.0;
         String betDetails =
                 "משחק: " + team1 + " vs " + team2 + "\n" +
                         "בחירה: " + betType + "\n" +
-                        "יחס: " + (odds > 0 ? odds : "לא זמין") + "\n" +
-                        "fixtureId: " + fixtureId;
+                                    "יחס קבוע: " + odds + "\n" +         
+            "fixtureId: " + fixtureId;
 
         betDetailsTextView.setText(betDetails);
 
         btnSaveBet.setOnClickListener(v -> {
             if (fixtureId <= 0 || team1 == null || team2 == null || betType == null) {
                 Toast.makeText(this, "חסר מידע על המשחק", Toast.LENGTH_LONG).show();
+                return;
+            }
+            String stakeText = betStakeEditText.getText() != null
+                    ? betStakeEditText.getText().toString().trim()
+                    : "";
+            double stake;
+            try {
+                stake = Double.parseDouble(stakeText);
+            } catch (NumberFormatException e) {
+                stake = 0;
+            }
+            if (stake <= 0) {
+                Toast.makeText(this, "אנא הזן סכום הימור תקין", Toast.LENGTH_LONG).show();
                 return;
             }
 
@@ -58,6 +71,7 @@ public class BetActivity extends AppCompatActivity {
             bet.put("awayTeam", team2);
             bet.put("kickoffTs", kickoffTs);
             bet.put("pick", betType);
+                      bet.put("stake", stake);
             bet.put("odds", odds);
             bet.put("status", "PENDING");
             bet.put("createdAt", Timestamp.now());
