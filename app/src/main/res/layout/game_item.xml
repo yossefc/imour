@@ -1,46 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="8dp">
-
-    <TextView
-        android:id="@+id/teamsTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="קבוצה א' נגד קבוצה ב'"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+    android:layout_margin="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="8dp">
+        android:orientation="vertical"
+        android:padding="12dp">
 
-        <Button
-            android:id="@+id/betTeam1Button"
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/teamsTextView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="1 (2.50)" />
+            android:text="Team A vs Team B"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:lineSpacingExtra="4dp"/>
 
-        <Button
-            android:id="@+id/betDrawButton"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="X (3.00)" />
+            android:orientation="horizontal"
+            android:layout_marginTop="12dp">
 
-        <Button
-            android:id="@+id/betTeam2Button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="2 (1.80)" />
+            <Button
+                android:id="@+id/betTeam1Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="1 (?)"
+                android:textSize="12sp"/>
+
+            <Button
+                android:id="@+id/betDrawButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:text="X (?)"
+                android:textSize="12sp"/>
+
+            <Button
+                android:id="@+id/betTeam2Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="2 (?)"
+                android:textSize="12sp"/>
+
+        </LinearLayout>
+
     </LinearLayout>
 
-</LinearLayout>
+</androidx.cardview.widget.CardView>
