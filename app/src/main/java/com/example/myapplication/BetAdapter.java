@@ -51,15 +51,22 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.BetVH> {
 
         String details = "תאריך: " + dateStr +
                 "\nבחירה: " + b.pick +
-                "\nיחס: " + (b.odds > 0 ? b.odds : "לא זמין");
-
+                "\nיחס: " + (b.odds > 0 ? b.odds : "לא זמין") +
+                "\nסכום: " + (b.stake > 0 ? b.stake : "לא הוגדר");
         if (b.finalHome != null && b.finalAway != null) {
             details += "\nתוצאה: " + b.finalHome + " - " + b.finalAway;
         }
 
-        h.details.setText(details);
 
         String status = b.status == null ? "PENDING" : b.status;
+             if (b.stake > 0 && (status.equals("WON") || status.equals("LOST"))) {
+            double profit = status.equals("WON")
+                    ? (b.stake * b.odds) - b.stake
+                    : -b.stake;
+            details += "\nרווח/הפסד: " + String.format(Locale.getDefault(), "%.2f", profit);
+        }
+
+        h.details.setText(details);
         h.status.setText("סטטוס: " + status);
 
         boolean finished = status.equals("WON") || status.equals("LOST");
